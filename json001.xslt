@@ -22,7 +22,8 @@
 <xsl:variable name="unc_url_protocol">unc://</xsl:variable>
 	
 	<xsl:template match='GSP'>
-		<xsl:text>{"GSP":{</xsl:text>
+    <xsl:if test="/GSP/PARAM[(@name='callback') and (@value!='')]"><xsl:value-of select="/GSP/PARAM[@name='callback']/@value"/>(</xsl:if>
+    <xsl:text>{"GSP":{</xsl:text>
 			"TM": "<xsl:value-of select="TM" />",
 			"Q": "<xsl:value-of select="Q" />",
 			"PARAM": [
@@ -44,7 +45,7 @@
 			<xsl:otherwise></xsl:otherwise>
 			</xsl:choose>
 			
-		<xsl:text>}}</xsl:text>
+		<xsl:text>}}</xsl:text><xsl:if test="/GSP/PARAM[(@name='callback') and (@value!='')]"><xsl:text>);</xsl:text></xsl:if>
 	</xsl:template>
 	
 	<xsl:template match="RES">
@@ -59,7 +60,7 @@
 					</xsl:for-each>
 				]
 				</xsl:if>
-			}
+        }
 	</xsl:template>
 	
 <xsl:template match='R'>
