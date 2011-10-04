@@ -37,7 +37,34 @@
 			}
 				<xsl:if test='position() != last()'>,
 				</xsl:if>
-      </xsl:for-each>],
+      </xsl:for-each>]
+			<xsl:choose>
+				<xsl:when test='Spelling and (count(Spelling/Suggestion) !=0)'>,
+			"Spelling":		
+			{
+				"Suggestion":[
+				<xsl:for-each select="Spelling/Suggestion">{
+					<xsl:for-each select="@*">
+						"<xsl:value-of select='name()' />":"<xsl:value-of select='.' />"
+						<xsl:if test="position() != last()">,
+						</xsl:if>
+					</xsl:for-each>
+					}
+					<xsl:if test="position() != last()">,
+					</xsl:if>
+				</xsl:for-each>
+				]
+			}
+				</xsl:when>
+			</xsl:choose>
+			<xsl:choose>
+				<xsl:when test='RES and (count(RES/node()) != 0)'>,
+					<xsl:apply-templates select='RES' />
+				</xsl:when>
+			<xsl:otherwise></xsl:otherwise>
+			</xsl:choose>
+			<xsl:choose>
+				<xsl:when test='GM and (count(GM) !=0)'>,
 			"GM":[
 			<xsl:for-each select='GM'>
 			{
@@ -47,6 +74,8 @@
 				<xsl:if test='position() != last()'>,
 				</xsl:if>
 			</xsl:for-each>]
+				</xsl:when>
+			</xsl:choose>
 			<xsl:choose>
 				<xsl:when test='RES and (count(RES/node()) != 0)'>,
 					<xsl:apply-templates select='RES' />
