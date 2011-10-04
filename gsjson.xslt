@@ -76,7 +76,17 @@
 	<xsl:template match="OBRES">
 		{
 			"module_name":"<xsl:value-of select='@module_name'/>",
-			"provider":"<xsl:value-of select='provider' />"
+			<xsl:if test="resultCode">"resultCode":"<xsl:value-of select='resultCode'/>",</xsl:if>
+			<xsl:if test="Diagnostics">"Diagnostics":"<xsl:value-of select='Diagnostics'/>",</xsl:if>
+			<xsl:if test="searchTerm">"searchTerm":"<xsl:value-of select='searchTerm'/>",</xsl:if>
+			<xsl:if test="totalResults">"totalResults":"<xsl:value-of select='totalResults'/>",</xsl:if>						
+			"provider":"<xsl:value-of select='provider' />",
+			"title":[
+				{
+				"urlText":"<xsl:value-of select='title/urlText' />",
+				"urlLink":"<xsl:value-of select='title/urlLink' />"
+				}
+			]
 		}<xsl:if test='position() != last()'>,</xsl:if>
 	</xsl:template>
 	
@@ -217,7 +227,7 @@
 			,"MT": {<xsl:apply-templates select='MT' />}
 		</xsl:if>
 		
-		}
+		}<xsl:if test="position() != last()">,</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match='HAS'>
