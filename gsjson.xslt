@@ -37,6 +37,15 @@
 			}
 				<xsl:if test='position() != last()'>,
 				</xsl:if>
+      </xsl:for-each>],
+			"GM":[
+			<xsl:for-each select='GM'>
+			{
+				"GL":"<xsl:value-of select='GL'/>",
+				"GD":"<xsl:value-of select='GD'/>"
+			}
+				<xsl:if test='position() != last()'>,
+				</xsl:if>
 			</xsl:for-each>]
 			<xsl:choose>
 				<xsl:when test='RES and (count(RES/node()) != 0)'>,
