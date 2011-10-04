@@ -15,7 +15,7 @@ It currently needs some more work in relation to sanity checking but thankfully 
 
 ## Changelog
 ### 0.0.3
-* Added OneBox support (ENTOBRESULT)
+* Added OneBox support [ENTOBRESULT](http://code.google.com/apis/searchappliance/documentation/50/oneboxguide.html)
 * Added Key Match support (GM)
 * Added Spelling support (Spelling/Suggestion)
 * Added Synonym support (Synonym)
