@@ -1,22 +1,23 @@
 # Google Search Appliance - JSON Frontend
 
-This JSON generator in XSLT is specifically to match the GSP format
-XML that is generated as a common format for many search implemen-
-tations.
+This JSON generator in XSLT is specifically to match the GSP format XML that is generated as a common format for many search implementations.
 
-The JSON wraps everything in one master node 'GSP', then handles 
-results by wrapping those (if they exist) in GSP/RES.
+The JSON wraps everything in one master node 'GSP', then handles results by wrapping those (if they exist) in GSP/RES.
 
-It currently needs some more work in relation to sanity checking 
-but thankfully the format imposes lots of restrictions on that
-anyhow.
+It currently needs some more work in relation to sanity checking but thankfully the format imposes lots of restrictions on that anyhow.
 
-Planned Improvements:
 
-Onebox Support, Keymatches, Did you Mean and other Client= features.
+## Todo
+* OneBox Support
+* Keymatch Support
+* JSONP Support
+* Did you Mean Support
+* Sanity checks
+* JavaScript Examples
+* Other client features
 
-Version 0.0.2 - Added Meta Tag support and handled generation of
-                display urls slightly better to match the standard
-                XSLT output.
-
-Version 0.0.1 - Initial commit. Quick push to get working.
+## Changelog
+### 0.0.2
+Added Meta Tag support and handled generation of display urls slightly better to match the standard XSLT output.
+### 0.0.1
+Initial commit. Push to get things working.
