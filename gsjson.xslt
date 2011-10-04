@@ -98,6 +98,18 @@
 	{
 		"Title":"<xsl:value-of select='Title' />"
 		<xsl:if test="U">,"U":"<xsl:value-of select='U' />"</xsl:if>
+		<xsl:choose>
+			<xsl:when test="Field and (count(Field/node()) != 0)">,
+				"Field":[<xsl:apply-templates select="Field" />]
+			</xsl:when>
+		</xsl:choose>
+	}<xsl:if test='position() != last()'>,</xsl:if>
+	</xsl:template>
+	
+	<xsl:template match="Field">
+	{
+		"name":"<xsl:value-of select='@name' />",
+		"value":"<xsl:value-of select='.' />"
 	}<xsl:if test='position() != last()'>,</xsl:if>
 	</xsl:template>
 	
