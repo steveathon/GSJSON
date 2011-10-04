@@ -63,6 +63,23 @@
 		<xsl:text>}}</xsl:text><xsl:if test="/GSP/PARAM[(@name='callback') and (@value!='')]"><xsl:text>);</xsl:text></xsl:if>
 	</xsl:template>
 	
+	<xsl:template match="ENTOBRESULTS">
+	"ENTOBRESULTS":{
+		<xsl:if test="OBRES">
+		"OBRES": [
+			<xsl:apply-templates select="OBRES" />
+		]
+		</xsl:if>
+	}
+	</xsl:template>
+	
+	<xsl:template match="OBRES">
+		{
+			"module_name":"<xsl:value-of select='@module_name'/>",
+			"provider":"<xsl:value-of select='provider' />"
+		}<xsl:if test='position() != last()'>,</xsl:if>
+	</xsl:template>
+	
 	<xsl:template match="Spelling">
 		"Spelling":		
 		{
@@ -80,6 +97,7 @@
 			]
 		}
 	</xsl:template>
+	
 	<xsl:template match="GM">
 		{
 			"GL":"<xsl:value-of select='GL'/>",
@@ -88,6 +106,7 @@
 			<xsl:if test='position() != last()'>,
 			</xsl:if>
 	</xsl:template>
+	
 	<xsl:template match="RES">
 	"RES": {
 				"SN": "<xsl:value-of select="@SN" />",
@@ -96,8 +115,6 @@
 				<xsl:if test='R'>
 				"R": [
 					<xsl:apply-templates select='R' />
-					<xsl:for-each select='R'>
-					</xsl:for-each>
 				]
 				</xsl:if>
         }
@@ -200,7 +217,7 @@
 			,"MT": {<xsl:apply-templates select='MT' />}
 		</xsl:if>
 		
-		}<xsl:if test='position() != last()'>,</xsl:if>
+		}
 	</xsl:template>
 	
 	<xsl:template match='HAS'>
