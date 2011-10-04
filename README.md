@@ -19,7 +19,9 @@ It currently needs some more work in relation to sanity checking but thankfully 
 * Added Key Match support (GM)
 * Added Spelling support (Spelling/Suggestion)
 * Added Synonym support (Synonym)
+
 ### 0.0.2
 Added Meta Tag support and handled generation of display urls slightly better to match the standard XSLT output.
+
 ### 0.0.1
 Initial commit. Push to get things working.
