@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
-<xsl:output method="text" encoding="utf-8"/>
+<xsl:output method="text" encoding="UTF-8" omit-xml-declaration="yes" indent="no" media-type="application/json"/>
 
 <xsl:variable name="truncate_result_urls">1</xsl:variable>
 <xsl:variable name="truncate_result_url_length">100</xsl:variable>
@@ -85,7 +85,7 @@
 				{
 				"urlText":"<xsl:value-of select='title/urlText' />",
 				"urlLink":"<xsl:value-of select='title/urlLink' />"
-				},
+				}
 			],
 			<xsl:if test="IMAGE_SOURCE">"IMAGE_SOURCE":"<xsl:value-of select='IMAGE_SOURCE'/>",</xsl:if>
 			"MODULE_RESULT": [
