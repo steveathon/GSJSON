@@ -1,4 +1,4 @@
-= Google Search Appliance - JSON Frontend
+# Google Search Appliance - JSON Frontend
 
 This JSON generator in XSLT is specifically to match the GSP format
 XML that is generated as a common format for many search implemen-
