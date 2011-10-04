@@ -85,9 +85,20 @@
 				{
 				"urlText":"<xsl:value-of select='title/urlText' />",
 				"urlLink":"<xsl:value-of select='title/urlLink' />"
-				}
-			]
+				},
+			],
+			<xsl:if test="IMAGE_SOURCE">"IMAGE_SOURCE":"<xsl:value-of select='IMAGE_SOURCE'/>",</xsl:if>
+			"MODULE_RESULT": [
+					<xsl:apply-templates select='MODULE_RESULT' />
+				]
 		}<xsl:if test='position() != last()'>,</xsl:if>
+	</xsl:template>
+	
+	<xsl:template match="MODULE_RESULT">
+	{
+		"Title":"<xsl:value-of select='Title' />"
+		<xsl:if test="U">,"U":"<xsl:value-of select='U' />"</xsl:if>
+	}<xsl:if test='position() != last()'>,</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match="Spelling">
