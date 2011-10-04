@@ -58,12 +58,6 @@
 				</xsl:when>
 			</xsl:choose>
 			<xsl:choose>
-				<xsl:when test='RES and (count(RES/node()) != 0)'>,
-					<xsl:apply-templates select='RES' />
-				</xsl:when>
-			<xsl:otherwise></xsl:otherwise>
-			</xsl:choose>
-			<xsl:choose>
 				<xsl:when test='GM and (count(GM) !=0)'>,
 			"GM":[
 			<xsl:for-each select='GM'>
