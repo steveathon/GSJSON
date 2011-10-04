@@ -40,34 +40,17 @@
       </xsl:for-each>]
 			<xsl:choose>
 				<xsl:when test='Spelling and (count(Spelling/Suggestion) !=0)'>,
-			"Spelling":		
-			{
-				"Suggestion":[
-				<xsl:for-each select="Spelling/Suggestion">{
-					<xsl:for-each select="@*">
-						"<xsl:value-of select='name()' />":"<xsl:value-of select='.' />"
-						<xsl:if test="position() != last()">,
-						</xsl:if>
-					</xsl:for-each>
-					}
-					<xsl:if test="position() != last()">,
-					</xsl:if>
-				</xsl:for-each>
-				]
-			}
+					<xsl:apply-templates select="Spelling" />
+				</xsl:when>
+			</xsl:choose>
+			<xsl:choose>
+				<xsl:when test='ENTOBRESULTS and (count(ENTOBRESULTS/node())!=0)'>,
+					<xsl:apply-templates select='ENTOBRESULTS' />
 				</xsl:when>
 			</xsl:choose>
 			<xsl:choose>
 				<xsl:when test='GM and (count(GM) !=0)'>,
-			"GM":[
-			<xsl:for-each select='GM'>
-			{
-				"GL":"<xsl:value-of select='GL'/>",
-				"GD":"<xsl:value-of select='GD'/>"
-			}
-				<xsl:if test='position() != last()'>,
-				</xsl:if>
-			</xsl:for-each>]
+					"GM":[<xsl:apply-templates select='GM' />]
 				</xsl:when>
 			</xsl:choose>
 			<xsl:choose>
@@ -80,6 +63,31 @@
 		<xsl:text>}}</xsl:text><xsl:if test="/GSP/PARAM[(@name='callback') and (@value!='')]"><xsl:text>);</xsl:text></xsl:if>
 	</xsl:template>
 	
+	<xsl:template match="Spelling">
+		"Spelling":		
+		{
+			"Suggestion":[
+			<xsl:for-each select="Suggestion">{
+				<xsl:for-each select="@*">
+					"<xsl:value-of select='name()' />":"<xsl:value-of select='.' />"
+					<xsl:if test="position() != last()">,
+					</xsl:if>
+				</xsl:for-each>
+				}
+				<xsl:if test="position() != last()">,
+				</xsl:if>
+			</xsl:for-each>
+			]
+		}
+	</xsl:template>
+	<xsl:template match="GM">
+		{
+			"GL":"<xsl:value-of select='GL'/>",
+			"GD":"<xsl:value-of select='GD'/>"
+		}
+			<xsl:if test='position() != last()'>,
+			</xsl:if>
+	</xsl:template>
 	<xsl:template match="RES">
 	"RES": {
 				"SN": "<xsl:value-of select="@SN" />",
