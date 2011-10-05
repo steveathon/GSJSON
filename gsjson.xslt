@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
-<xsl:output method="text" encoding="utf-8"/>
+<xsl:output method="text" encoding="UTF-8" omit-xml-declaration="yes" indent="no" media-type="application/json"/>
 
 <xsl:variable name="truncate_result_urls">1</xsl:variable>
 <xsl:variable name="truncate_result_url_length">100</xsl:variable>
@@ -22,7 +22,8 @@
 <xsl:variable name="unc_url_protocol">unc://</xsl:variable>
 	
 	<xsl:template match='GSP'>
-		<xsl:text>{"GSP":{</xsl:text>
+    <xsl:if test="/GSP/PARAM[(@name='callback') and (@value!='')]"><xsl:value-of select="/GSP/PARAM[@name='callback']/@value"/>(</xsl:if>
+    <xsl:text>{"GSP":{</xsl:text>
 			"TM": "<xsl:value-of select="TM" />",
 			"Q": "<xsl:value-of select="Q" />",
 			"PARAM": [
@@ -36,7 +37,22 @@
 			}
 				<xsl:if test='position() != last()'>,
 				</xsl:if>
-			</xsl:for-each>]
+      </xsl:for-each>]
+			<xsl:choose>
+				<xsl:when test='Spelling and (count(Spelling/Suggestion) !=0)'>,
+					<xsl:apply-templates select="Spelling" />
+				</xsl:when>
+			</xsl:choose>
+			<xsl:choose>
+				<xsl:when test='ENTOBRESULTS and (count(ENTOBRESULTS/node())!=0)'>,
+					<xsl:apply-templates select='ENTOBRESULTS' />
+				</xsl:when>
+			</xsl:choose>
+			<xsl:choose>
+				<xsl:when test='GM and (count(GM) !=0)'>,
+					"GM":[<xsl:apply-templates select='GM' />]
+				</xsl:when>
+			</xsl:choose>
 			<xsl:choose>
 				<xsl:when test='RES and (count(RES/node()) != 0)'>,
 					<xsl:apply-templates select='RES' />
@@ -44,7 +60,84 @@
 			<xsl:otherwise></xsl:otherwise>
 			</xsl:choose>
 			
-		<xsl:text>}}</xsl:text>
+		<xsl:text>}}</xsl:text><xsl:if test="/GSP/PARAM[(@name='callback') and (@value!='')]"><xsl:text>);</xsl:text></xsl:if>
+	</xsl:template>
+	
+	<xsl:template match="ENTOBRESULTS">
+	"ENTOBRESULTS":{
+		<xsl:if test="OBRES">
+		"OBRES": [
+			<xsl:apply-templates select="OBRES" />
+		]
+		</xsl:if>
+	}
+	</xsl:template>
+	
+	<xsl:template match="OBRES">
+		{
+			"module_name":"<xsl:value-of select='@module_name'/>",
+			<xsl:if test="resultCode">"resultCode":"<xsl:value-of select='resultCode'/>",</xsl:if>
+			<xsl:if test="Diagnostics">"Diagnostics":"<xsl:value-of select='Diagnostics'/>",</xsl:if>
+			<xsl:if test="searchTerm">"searchTerm":"<xsl:value-of select='searchTerm'/>",</xsl:if>
+			<xsl:if test="totalResults">"totalResults":"<xsl:value-of select='totalResults'/>",</xsl:if>						
+			"provider":"<xsl:value-of select='provider' />",
+			"title":[
+				{
+				"urlText":"<xsl:value-of select='title/urlText' />",
+				"urlLink":"<xsl:value-of select='title/urlLink' />"
+				}
+			],
+			<xsl:if test="IMAGE_SOURCE">"IMAGE_SOURCE":"<xsl:value-of select='IMAGE_SOURCE'/>",</xsl:if>
+			"MODULE_RESULT": [
+					<xsl:apply-templates select='MODULE_RESULT' />
+				]
+		}<xsl:if test='position() != last()'>,</xsl:if>
+	</xsl:template>
+	
+	<xsl:template match="MODULE_RESULT">
+	{
+		"Title":"<xsl:value-of select='Title' />"
+		<xsl:if test="U">,"U":"<xsl:value-of select='U' />"</xsl:if>
+		<xsl:choose>
+			<xsl:when test="Field and (count(Field/node()) != 0)">,
+				"Field":[<xsl:apply-templates select="Field" />]
+			</xsl:when>
+		</xsl:choose>
+	}<xsl:if test='position() != last()'>,</xsl:if>
+	</xsl:template>
+	
+	<xsl:template match="Field">
+	{
+		"name":"<xsl:value-of select='@name' />",
+		"value":"<xsl:value-of select='.' />"
+	}<xsl:if test='position() != last()'>,</xsl:if>
+	</xsl:template>
+	
+	<xsl:template match="Spelling">
+		"Spelling":		
+		{
+			"Suggestion":[
+			<xsl:for-each select="Suggestion">{
+				<xsl:for-each select="@*">
+					"<xsl:value-of select='name()' />":"<xsl:value-of select='.' />"
+					<xsl:if test="position() != last()">,
+					</xsl:if>
+				</xsl:for-each>
+				}
+				<xsl:if test="position() != last()">,
+				</xsl:if>
+			</xsl:for-each>
+			]
+		}
+	</xsl:template>
+	
+	<xsl:template match="GM">
+		{
+			"GL":"<xsl:value-of select='GL'/>",
+			"GD":"<xsl:value-of select='GD'/>"
+		}
+			<xsl:if test='position() != last()'>,
+			</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match="RES">
@@ -55,11 +148,9 @@
 				<xsl:if test='R'>
 				"R": [
 					<xsl:apply-templates select='R' />
-					<xsl:for-each select='R'>
-					</xsl:for-each>
 				]
 				</xsl:if>
-			}
+        }
 	</xsl:template>
 	
 <xsl:template match='R'>
@@ -159,7 +250,7 @@
 			,"MT": {<xsl:apply-templates select='MT' />}
 		</xsl:if>
 		
-		}<xsl:if test='position() != last()'>,</xsl:if>
+		}<xsl:if test="position() != last()">,</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match='HAS'>
