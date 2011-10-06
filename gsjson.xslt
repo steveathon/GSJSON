@@ -232,6 +232,7 @@
 		"UE":"<xsl:value-of select='UE' />",
 		"ED":"<xsl:value-of select='ED' />",
 		"T":"<xsl:value-of select='T' />",
+		"CRAWLDATE":"<xsl:value-of select='CRAWLDATE'/>",
 		"RK":"<xsl:value-of select='RK' />",
 		"FS": {	<xsl:for-each select="FS/@*">
 					"<xsl:value-of select='name()' />":"<xsl:value-of select='.' />"
