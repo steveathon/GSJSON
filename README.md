@@ -23,7 +23,7 @@ It currently needs some more work in relation to sanity checking but thankfully 
 * Added CRAWLDATE to R (Issue #8)
 * Fixed FS tag (Issue #7)
 * Set the S tag to populate -- need to sanitize (Issue #9)
-                             - 
+
 ### 0.0.3
 * Added OneBox support [ENTOBRESULT](http://code.google.com/apis/searchappliance/documentation/50/oneboxguide.html)
 * Added Key Match support (GM)
