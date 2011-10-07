@@ -232,12 +232,13 @@
 		"UE":"<xsl:value-of select='UE' />",
 		"ED":"<xsl:value-of select='ED' />",
 		"T":"<xsl:value-of select='T' />",
+		"CRAWLDATE":"<xsl:value-of select='CRAWLDATE'/>",
 		"RK":"<xsl:value-of select='RK' />",
-		"FS": {	<xsl:for-each select="@*">
+		"FS": {	<xsl:for-each select="FS/@*">
 					"<xsl:value-of select='name()' />":"<xsl:value-of select='.' />"
 					<xsl:if test="position() != last()">,</xsl:if>
 				</xsl:for-each>},
-		"S": "",
+		"S": "<xsl:value-of select='S' />",
 		"LANG": "<xsl:value-of select='LANG'/>"
 		<xsl:choose>
 			<xsl:when test='HAS'>
