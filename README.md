@@ -13,11 +13,17 @@ It currently needs some more work in relation to sanity checking but thankfully 
 * JavaScript Examples
 * Other client features
 
+
 ## Changelog
+
+### 0.0.5 
+* Fixed minor issue in readme file.
+
 ### 0.0.4
 * Added CRAWLDATE to R (Issue #8)
 * Fixed FS tag (Issue #7)
 * Set the S tag to populate -- need to sanitize (Issue #9)
+                             - 
 ### 0.0.3
 * Added OneBox support [ENTOBRESULT](http://code.google.com/apis/searchappliance/documentation/50/oneboxguide.html)
 * Added Key Match support (GM)
