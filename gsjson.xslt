@@ -26,18 +26,7 @@
     <xsl:text>{"GSP":{</xsl:text>
 			"TM": "<xsl:value-of select="TM" />",
 			"Q": "<xsl:value-of select="Q" />",
-			"PARAM": [
-			<xsl:for-each select='PARAM'>
-			{
-				<xsl:for-each select="@*">
-					"<xsl:value-of select='name()' />":"<xsl:value-of select='.' />"
-					<xsl:if test="position() != last()">,
-					</xsl:if>
-				</xsl:for-each>
-			}
-				<xsl:if test='position() != last()'>,
-				</xsl:if>
-      </xsl:for-each>]
+			"PARAM": [<xsl:apply-templates select='PARAM' />]
 			<xsl:choose>
 				<xsl:when test='Spelling and (count(Spelling/Suggestion) !=0)'>,
 					<xsl:apply-templates select="Spelling" />
@@ -151,6 +140,18 @@
 				]
 				</xsl:if>
         }
+	</xsl:template>
+	
+	<xsl:template match="PARAM">
+	{
+				<xsl:for-each select="@*">
+					"<xsl:value-of select='name()' />":"<xsl:value-of select='.' />"
+					<xsl:if test="position() != last()">,
+					</xsl:if>
+				</xsl:for-each>
+			}
+				<xsl:if test='position() != last()'>,
+				</xsl:if>
 	</xsl:template>
 	
 <xsl:template match='R'>
