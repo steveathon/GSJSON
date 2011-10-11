@@ -16,6 +16,9 @@ It currently needs some more work in relation to sanity checking but thankfully 
 
 ## Changelog
 
+### 0.0.6
+* Moved PARAM to a template, instead of doing inline processing. Inline with local version.
+
 ### 0.0.5 
 * Fixed minor issue in readme file.
 
