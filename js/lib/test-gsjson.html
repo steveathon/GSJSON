@@ -9,12 +9,12 @@
 		<input type="submit" value="Search" id="search-button">
 	</form>
 	<div id="results"></div>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 	<script src="gsjson.js"></script>
 	<script type="text/javascript">
 		$('document').ready(function () {
 			$('#search').submit(function () {
-				$('#results').GSJSON({uri:'http://search.acu.edu',frontend:'json_frontend',query:$('#q').val()});
+				$('#results').GSJSON({uri:'http://example.com',frontend:'json_frontend',query:$('#q').val()});
 				return false;
 			});
 		});
