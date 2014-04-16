@@ -49,6 +49,7 @@
 			<xsl:otherwise></xsl:otherwise>
 			</xsl:choose>
 			
+			
 		<xsl:text>}}</xsl:text><xsl:if test="/GSP/PARAM[(@name='callback') and (@value!='')]"><xsl:text>);</xsl:text></xsl:if>
 	</xsl:template>
 	
@@ -139,6 +140,9 @@
 					<xsl:apply-templates select='R' />
 				]
 				</xsl:if>
+				<xsl:if test='PARM'>
+				,<xsl:apply-templates select='PARM' />
+				</xsl:if>
         }
 	</xsl:template>
 	
@@ -154,7 +158,7 @@
 				</xsl:if>
 	</xsl:template>
 	
-<xsl:template match='R'>
+    <xsl:template match='R'>
 	<xsl:variable name="protocol"     select="substring-before(U, '://')"/>
 	<xsl:variable name="temp_url"     select="substring-after(U, '://')"/>
 	<xsl:variable name="display_url1" select="substring-after(UD, '://')"/>
@@ -265,6 +269,36 @@
 			}
 	</xsl:template>
 	
+	<xsl:template match='PARM'>
+	"PARM": {
+				"PC": "<xsl:value-of select="PC" />"
+				<xsl:if test='PMT'>
+				,"PMT": [
+					<xsl:apply-templates select='PMT' />
+				]
+				</xsl:if>
+        }
+	</xsl:template>
+
+	<xsl:template match='PMT'>
+		{"NM": "<xsl:value-of select='@NM' />",
+		"DN": "<xsl:value-of select='@DN' />",
+		"IR": "<xsl:value-of select='@IR' />",
+		"T": "<xsl:value-of select='@T' />"
+		<xsl:if test="PV">
+		, "PV" : [ <xsl:apply-templates select='PV' />
+		]}
+		</xsl:if>
+		<xsl:if test="position() != last()">,</xsl:if>
+	</xsl:template>
+
+	<xsl:template match='PV'>
+		{"V": "<xsl:value-of select='@V' />",
+		"L": "<xsl:value-of select='@L' />",
+		"H": "<xsl:value-of select='@H' />",
+		"C": "<xsl:value-of select='@C' />"}
+		<xsl:if test="position() != last()">,</xsl:if>
+	</xsl:template>
 
 <!-- Match Meta tags and slot them in -->	
 <xsl:template match="MT">

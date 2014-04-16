@@ -16,6 +16,9 @@ It currently needs some more work in relation to sanity checking but thankfully 
 
 ## Changelog
 
+### 0.0.7
+* Added Dynamic Navigation Elements
+
 ### 0.0.6
 * Moved PARAM to a template, instead of doing inline processing. Inline with local version.
 
