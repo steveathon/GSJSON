@@ -6,13 +6,18 @@ The JSON wraps everything in one master node 'GSP', then handles results by wrap
 
 It currently needs some more work in relation to sanity checking but thankfully the format imposes lots of restrictions on that anyhow.
 
+## Known Issues
+
+* Currently not supporting v7.0+ (although it works)
+* IE8+ does not treat output always as JSON (Quick fix in JQuery does correct this)
+
+This project is undergoing active review.
 
 ## Todo
 * Test cases
 * Sanity checks
 * JavaScript Examples
 * Other client features
-
 
 ## Changelog
 
